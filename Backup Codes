@@ -1,0 +1,69 @@
+import configparser
+
+from tabulate import tabulate
+
+config = configparser.ConfigParser()
+config.read_file(open(r'Config.txt'))
+path1 = config.get('My Section', 'path1')
+path2 = config.get('My Section', 'path2')
+path3 = config.get('My Section', 'path3')
+
+print(path1,path2,path3)
+#========================================================================================================
+from texttable import Texttable
+t = Texttable()
+t.add_rows([['Fruit', 'Price/Kg'], ['Apple', 25], ['Banana', 20]])
+print(t.draw())
+
+#========================================================================================================
+
+
+from prettytable import PrettyTable
+
+# These 3 are the columns of the tables
+t = PrettyTable(['Subject Code', 'Subject', 'Marks'])
+
+# To insert rows:
+t.add_row(['K01', 'Maths', 95])
+t.add_row(['K04', 'Physics', 89])
+t.add_row(['K03', 'Chemistry', 92])
+t.add_row(['K08', 'English', 91])
+t.add_row(['K29', 'Computer Science', 99])
+t.add_row(['K06', 'Social Science', 86])
+
+print(t)
+
+#========================================================================================================
+
+from terminaltables import AsciiTable
+
+data = [['Fruit', 'Price/Kg'], ['Apple', 25], ['Banana', 20]]
+
+table = AsciiTable(data, title='Fruit Prices')
+table.justify = 'center'
+table.inner_row_border = True
+print(table.table)
+
+#========================================================================================================
+
+
+table = [['col 1', 'col 2', 'col 3', 'col 4'], [1, 2222, 30, 500], [4, 55, 6777, 1]]
+print(tabulate(table, headers='firstrow', tablefmt='fancy_grid'))
+
+#========================================================================================================
+from rich.console import Console
+from rich.table import Table
+
+console = Console()
+
+table = Table(show_header=True, header_style="bold magenta")
+table.add_column("T1", style="dim", width=12)
+table.add_column("T1", style="dim", width=12)
+table.add_column("T1", style="dim", width=12)
+table.add_column("T1", style="dim", width=12)
+table.add_row("T1", "T1", "T1", "T1")
+table.add_row("T1", "T1", "T1", "T1")
+table.add_row("T1", "T1", "T1", "T1")
+console.print(table)
+
+#=================================================================================================================
