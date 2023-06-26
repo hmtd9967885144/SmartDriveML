@@ -1,23 +1,24 @@
-import tkinter as tk
-from tkinter import filedialog
+import requests
+import collections
+collections.Callable = collections.abc.Callable
+from bs4 import BeautifulSoup
 import pandas as pd
-import openpyxl
 from tabulate import tabulate
 
-root = tk.Tk()
-root.withdraw()
 
-print("Select Dataset in CSV Or Excel Format")
-path2urExcel = filedialog.askopenfilename(title="Select the desired excel file")
+website_url = requests.get('https://learn.microsoft.com/en-us/azure/architecture/aws-professional/services').text
+soup = BeautifulSoup(website_url,'lxml')
+soup = BeautifulSoup(website_url, 'html.parser')
 
-try:
-    data = pd.read_csv(path2urExcel)
-except:
-    try:
-        sheet_name = str(input("Enter sheet name:  \n"))
-        data = pd.read_excel(open(path2urExcel, 'rb'), sheet_name=sheet_name)
-    except:
-        print("Invalid format")
+for table in soup.find_all('table'):
+    # count = count+1
+    # if count==3:
+    text_file = open("Test_html.html.", "w")
+    text_file.write(str(table))
+    text_file.close()
+    tbl = pd.read_html('Test_html.html')[0]
+    print(tabulate(tbl, headers='keys', tablefmt='psql'))
+        #break
 
-print(tabulate(data, headers = 'keys', tablefmt = 'psql'))
-
+# tbl = pd.read_html('Test_html.html')[0]
+# print(tabulate(tbl, headers='keys', tablefmt='psql'))
