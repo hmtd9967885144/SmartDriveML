@@ -1,28 +1,23 @@
-import configparser
-
+import tkinter as tk
+from tkinter import filedialog
+import pandas as pd
+import openpyxl
 from tabulate import tabulate
 
-config = configparser.ConfigParser()
-config.read_file(open(r'Config.txt'))
-path1 = config.get('My Section', 'path1')
-path2 = config.get('My Section', 'path2')
-path3 = config.get('My Section', 'path3')
+root = tk.Tk()
+root.withdraw()
 
-print(path1,path2,path3)
+print("Select Dataset in CSV Or Excel Format")
+path2urExcel = filedialog.askopenfilename(title="Select the desired excel file")
 
+try:
+    data = pd.read_csv(path2urExcel)
+except:
+    try:
+        sheet_name = str(input("Enter sheet name:  \n"))
+        data = pd.read_excel(open(path2urExcel, 'rb'), sheet_name=sheet_name)
+    except:
+        print("Invalid format")
 
+print(tabulate(data, headers = 'keys', tablefmt = 'psql'))
 
-from rich.console import Console
-from rich.table import Table
-
-console = Console()
-
-table = Table(show_header=True, header_style="bold magenta")
-table.add_column("T1", style="dim", width=12)
-table.add_column("T1", style="dim", width=12)
-table.add_column("T1", style="dim", width=12)
-table.add_column("T1", style="dim", width=12)
-table.add_row("T1", "T1", "T1", "T1")
-table.add_row("T1", "T1", "T1", "T1")
-table.add_row("T1", "T1", "T1", "T1")
-console.print(table)
