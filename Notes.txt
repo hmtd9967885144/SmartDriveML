@@ -7,3 +7,17 @@ git add .
 git status
 git commit -m "New Commit"
 git push -u origin
+
+
+# Regarding Library Creation
+
+1 - Make changes in SmartDriveML Lib
+2 - Delete Earlier Versions from Dist folders.
+
+3 - Execute Below code lines one by one:
+
+python setup.py sdist bdist_wheel
+
+twine upload dist/* -u hmtd1992 -p Hmtd@9967885144
+
+pip install SmartDriveML --upgrade
